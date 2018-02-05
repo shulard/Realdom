@@ -201,7 +201,10 @@ abstract class Realdom
                     next($this->_arguments);
                 }
 
-                while (list($name, $default) = each($this->_arguments)) {
+                do {
+                    $name = key($this->_arguments);
+                    $default = current($this->_arguments);
+
                     if (is_int($name)) {
                         $j = 0;
                         array_walk(
@@ -231,7 +234,7 @@ abstract class Realdom
 
                     $this->arguments[$name] = $default;
                     $hints[]                = $hint;
-                }
+                } while(next($this->_arguments));
 
                 self::autoBoxing($this->arguments, $this);
 
